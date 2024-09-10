@@ -1,5 +1,5 @@
 import User from "../models/User.js";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 
 //obtener todos los usuarios
 async function getAllUsers(req, res) {
@@ -7,6 +7,9 @@ async function getAllUsers(req, res) {
     const users = await User.find({ deletedAt: { $eq: null } }).select(
       "-password"
     );
+    if (users.length === 0) {
+      return res.status(404).json({ message: "No users found" });
+    }
     return res.status(200).json(users);
   } catch (error) {
     console.log(error);
@@ -18,14 +21,17 @@ async function getAllUsers(req, res) {
 async function getUserById(req, res) {
   try {
     const userId = req.params.id;
-    const userFound = await User.findById(userId).select("-password");
+    const userFound = await User.findOne({
+      _id: userId,
+      deletedAt: { $eq: null },
+    }).select("-password");
     if (!userFound) {
-      return res.status(404).json("User not found");
+      return res.status(404).json({ message: "User not found" });
     }
     return res.status(200).json(userFound);
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "User not found" });
+    return res.status(500).json({ message: "Internal server error" });
   }
 }
 
@@ -33,6 +39,7 @@ async function getUserById(req, res) {
 async function createUser(req, res) {
   try {
     const newUser = await User.create({
+      username: req.body.username,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
@@ -76,18 +83,19 @@ async function updateUser(req, res) {
 async function deleteUser(req, res) {
   try {
     const userId = req.params.id;
-    const deletedUser = await User.findByIdAndUpdate(
-      userId,
-      { deletedAt: new Date() },
-      { new: true }
-    );
-    if (!deletedUser) {
+    const user = await User.findById(userId);
+    if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
+    if (user.deletedAt) {
+      return res.status(400).json({ message: "User already deleted" });
+    }
+    user.deletedAt = new Date();
+    await user.save();
     return res.status(200).json({ message: "User deleted successfully" });
   } catch (error) {
     console.log(error);
-    return res.status(500).json("Internal server error");
+    return res.status(500).json({ message: "Internal server error" });
   }
 }
 
