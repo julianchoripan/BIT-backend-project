@@ -20,7 +20,7 @@ const userSchema = mongoose.Schema(
       required: true,
     },
     age: Number,
-    adress: String,
+    address: String,
     phoneNumber: Number,
     deletedAt: {
       type: Date,
