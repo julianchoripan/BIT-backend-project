@@ -47,6 +47,7 @@ async function createUser(req, res) {
       age: req.body.age,
       address: req.body.address,
       phoneNumber: req.body.phoneNumber,
+      avatar: req.body.avatar,
     });
     return res.status(201).json({ message: "User created successfully" });
   } catch (error) {
