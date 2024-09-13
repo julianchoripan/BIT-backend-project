@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import userRoutes from "./routes/userRoutes.js";
 import connectDB from "./config/database.js";
+import productRoutes from "./routes/productRoutes.js";
 
 const app = express();
 const port = 3000;
@@ -18,6 +19,7 @@ if (!fs.existsSync(newavatar)) {
 connectDB();
 
 app.use(userRoutes);
+app.use(productRoutes);
 
 //servidor en escucha
 app.listen(port, () => {
