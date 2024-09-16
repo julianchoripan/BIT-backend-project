@@ -33,6 +33,10 @@ const productSchema = mongoose.Schema(
       required: true,
       min: 0,
     },
+    avatar: {
+      type: String,
+      required: false, 
+    },
     deletedAt: {
       type: Date,
       default: null,

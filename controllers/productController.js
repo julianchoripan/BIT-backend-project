@@ -37,6 +37,7 @@ async function create(req, res) {
       model: req.body.model,
       category: req.body.category,
       stock: req.body.stock,
+      avatar: req.file.filename,
     });
     return res.status(201).json(newProduct);
   } catch (error) {
@@ -77,7 +78,7 @@ async function destroy(req, res) {
     productDelete.deletedAt = Date.now();
     productDelete.save();
 
-    return res.json("se ha eliminado el producto")
+    return res.json("se ha eliminado el producto");
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Internal server error" });

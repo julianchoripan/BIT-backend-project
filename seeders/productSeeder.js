@@ -14,7 +14,8 @@ async function productSeeder() {
     category: "Frenos",
     dimensions: "30x30cm",
     stock: "50",
-  });
+    avatar: "frenos.png",
+});
 
   await Product.create({
     name: "Bujia Everestt CR9DF Pulsar 180",
@@ -26,6 +27,7 @@ async function productSeeder() {
     category: "motor",
     dimensions: "5x10cm",
     stock: "100",
+    avatar:"bujia.jpg"
   });
 
   await Product.create({
@@ -38,6 +40,7 @@ async function productSeeder() {
     category: "cadenas",
     dimensions: "80x50cm",
     stock: "20",
+    avatar: "kit de arrastre.png"
   });
 
   console.log("[seeder] se han creado productos de prueba");

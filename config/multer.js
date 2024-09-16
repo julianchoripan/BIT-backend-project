@@ -1,7 +1,7 @@
 import multer from "multer";
 import path from "path";
 
-const avatar = multer.diskStorage({
+const storage = multer.diskStorage({
     destination: (req, file, cb) => {
       cb(null, path.join(import.meta.dirname, "../avatar/ImgUser"));
     },
@@ -17,7 +17,7 @@ const avatar = multer.diskStorage({
     }};
   
   const upload = multer({
-    avatar: avatar,
+    storage: storage,
     fileFilter: fileFilter,
   });
   
