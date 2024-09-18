@@ -1,6 +1,5 @@
 import bcrypt from "bcrypt";
 import mongoose from "mongoose";
-
 const userSchema = mongoose.Schema(
   {
     username: {
@@ -32,9 +31,12 @@ const userSchema = mongoose.Schema(
     },
     avatar: {
       type: String,
-      require: false, 
+      require: false,
     },
-
+    rolecode: {
+      type: String,
+      default: "0",
+    },
   },
   {
     timestamps: true,

@@ -4,13 +4,13 @@ import path from "path";
 import userRoutes from "./routes/userRoutes.js";
 import connectDB from "./config/database.js";
 import productRoutes from "./routes/productRoutes.js";
-
+import login from "./middleware/authcontroller.js";
 const app = express();
 const port = 3000;
 
 app.use(express.json());
 
-const newavatar = path.join(import.meta.dirname, "avatar/imgUser");
+const newavatar = path.join(import.meta.dirname, "avatar/imgUser/imgProducts");
 
 if (!fs.existsSync(newavatar)) {
   fs.mkdirSync(newavatar, { recursive: true });

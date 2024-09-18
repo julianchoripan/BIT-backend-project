@@ -99,6 +99,19 @@ async function deleteUser(req, res) {
     return res.status(500).json({ message: "Internal server error" });
   }
 }
+async function login(req, res) {
+  const user = await User.findOne({ email: req.body.email });
+
+  if (user) {
+    //comparar la contraseña
+    const match = await bcrypt.compare(req.body.password, user.password);
+    if (match) {
+      return res.json("Te damos la bienvenida");
+    }
+  }
+
+  return res.json("Las credenciales son incorrectas");
+}
 
 export default {
   getAllUsers: getAllUsers,
@@ -106,4 +119,5 @@ export default {
   createUser: createUser,
   updateUser: updateUser,
   deleteUser: deleteUser,
+  login: login,
 };
