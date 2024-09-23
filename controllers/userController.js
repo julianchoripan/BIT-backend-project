@@ -37,22 +37,39 @@ async function getUserById(req, res) {
 
 //crear un usuario
 async function createUser(req, res) {
-  try {
-    const newUser = await User.create({
-      username: req.body.username,
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      password: req.body.password,
-      age: req.body.age,
-      address: req.body.address,
-      phoneNumber: req.body.phoneNumber,
-      avatar: req.body.avatar,
-    });
-    return res.status(201).json({ message: "User created successfully" });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: "Internal server error" });
+  //console.log(req.file)
+  const result = validationResult(req);
+  if (result.isEmpty()) {
+    const {
+      userName,
+      firstName,
+      lastName,
+      email,
+      password,
+      age,
+      address,
+      phoneNumber,
+    } = req.body;
+    //const imgUser = req.file.filename;
+    const userCreated = await User.findOne({ email: email });
+    if (!userCreated) {
+      const newUser = await User.create({
+        userName,
+        firstName,
+        lastName,
+        email,
+        password,
+        age,
+        address,
+        phoneNumber,
+        imgUser: req.file.supabaseUrl,
+      });
+      return res.status(201).json(newUser);
+    } else {
+      res.json({ message: "El usuario ya existe" });
+    }
+  } else {
+    return res.json({ error: result.array() });
   }
 }
 
