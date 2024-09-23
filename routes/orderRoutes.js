@@ -1,7 +1,6 @@
 import orderController from "../controllers/orderController.js";
 import express from "express";
 import { expressjwt } from "express-jwt";
-import Order from "../models/Order.js";
 import adminValidation from "../middlewares/adminValidation.js";
 import orderValidation from "../middlewares/orderValidator.js";
 const router = express.Router();
