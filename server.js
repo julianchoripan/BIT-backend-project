@@ -11,10 +11,19 @@ const port = 3000;
 
 app.use(express.json());
 
-const newavatar = path.join(import.meta.dirname, "avatar/imgUser/imgProducts");
+//const newavatar = path.join(import.meta.dirname, "avatar/imgUser/imgProducts");
 
-if (!fs.existsSync(newavatar)) {
-  fs.mkdirSync(newavatar, { recursive: true });
+const entity = req.params.entity;
+let folder = '';
+
+if (entity === 'user') {
+  folder = './uploads/users';
+} else if (entity===product){
+  folder = './uploads/products'
+}
+
+if (!fs.existsSync(folder)) {
+  fs.mkdirSync(folder, { recursive: true });
 }
 
 connectDB();

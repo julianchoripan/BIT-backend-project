@@ -1,10 +1,12 @@
 import multer from "multer";
 import path from "path";
+import fs from "fs"
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
       cb(null, path.join(import.meta.dirname, "../avatar/ImgUser"));
     },
+
     filename: (req, file, cb) => {
       cb(null, `${Date.now()}-${file.originalname}`)
     }});

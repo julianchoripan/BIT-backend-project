@@ -5,20 +5,21 @@ import productController from "../controllers/productController.js";
 import productValidation from "../middleware/productsValidator.js";
 import { expressjwt } from "express-jwt";
 const router = express.Router();
+const jwtSecret = process.env.JWT_SECRET;
 
 router.get(
   "/api/products",
-  expressjwt({ secret: process.env.JWT_SECRET, algorithms: ["HS256"] }),
+  expressjwt({ secret: jwtSecret, algorithms: ["HS256"] }),
   productController.getAllProducts
 );
 router.get(
   "/api/products/:id",
-  expressjwt({ secret: process.env.JWT_SECRET, algorithms: ["HS256"] }),
+  expressjwt({ secret: jwtSecret, algorithms: ["HS256"] }),
   productController.getProductById
 );
 router.post(
   "/api/products",
-  expressjwt({ secret: process.env.JWT_SECRET, algorithms: ["HS256"] }),
+  expressjwt({ secret: jwtSecret, algorithms: ["HS256"] }),
   adminAccess,
   upload.single("avatar"),
   productValidation.create,
@@ -26,13 +27,13 @@ router.post(
 );
 router.patch(
   "/api/products/:id",
-  expressjwt({ secret: process.env.JWT_SECRET, algorithms: ["HS256"] }),
+  expressjwt({ secret: jwtSecret, algorithms: ["HS256"] }),
   adminAccess,
   productController.updateProduct
 );
 router.delete(
   "/api/products/:id",
-  expressjwt({ secret: process.env.JWT_SECRET, algorithms: ["HS256"] }),
+  expressjwt({ secret: jwtSecret, algorithms: ["HS256"] }),
   adminAccess,
   productController.destroy
 );
