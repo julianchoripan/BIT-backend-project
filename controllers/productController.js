@@ -1,3 +1,4 @@
+import { validationResult } from "express-validator";
 import Product from "../models/Product.js";
 
 async function getAllProducts(req, res) {
@@ -28,21 +29,42 @@ async function getProductById(req, res) {
 }
 
 async function create(req, res) {
-  try {
-    const newProduct = await Product.create({
-      name: req.body.name,
-      description: req.body.description,
-      price: req.body.price,
-      brand: req.body.brand,
-      model: req.body.model,
-      category: req.body.category,
-      stock: req.body.stock,
-      avatar: req.file.filename,
-    });
-    return res.status(201).json(newProduct);
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: "Internal server error" });
+  const result = validationResult(req);
+  if (result.isEmpty()) {
+    const {
+      cod,
+      name,
+      description,
+      price,
+      brand,
+      model,
+      category,
+      dimensions,
+      stock,
+    } = req.body;
+    const productCreated = await Product.findOne({ cod: cod });
+
+    if (!productCreated) {
+      const newProduct = await Product.create({
+        cod,
+        name,
+        description,
+        price,
+        brand,
+        model,
+        category,
+        dimensions,
+        stock,
+        // avatar: req.file.filename,
+      });
+      return res.status(201).json(newProduct);
+    } else {
+      res.json({
+        message:
+          "El producto ya está creado por favor actualiza la pagina",
+      });
+    }
+    return res.json({ error: result.array() });
   }
 }
 
