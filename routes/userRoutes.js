@@ -1,14 +1,47 @@
 import express from "express";
 import userController from "../controllers/userController.js";
-import upload from "../config/multer.js"
-import adminAccess from "../middleware/adminValidator.js";
+import { upload, handleUploadSupabase } from "../config/multer.js";
+import { expressjwt } from "express-jwt";
+
+import caractherValidatorUser from "../middlewares/caractherValidatorUser.js";
+import adminValidation from "../middlewares/adminValidation.js";
 const router = express.Router();
 
-router.get("/api/users", userController.getAllUsers);
-router.get("/api/users/:id", userController.getUserById);
-router.post("/api/users", upload.single("imgUser"), userController.createUser);
-router.patch("/api/users/:id", userController.updateUser);
-router.delete("/api/users/:id", userController.deleteUser);
-router.post("/api/users/login/:id", adminAccess,userController.login);
+router.get(
+  "/api/users",
+  expressjwt({ secret: process.env.JWT_SECRET, algorithms: ["HS256"] }),
+  adminValidation,
+  userController.getAllUsers
+);
+router.get(
+  "/api/users/:id",
+  expressjwt({ secret: process.env.JWT_SECRET, algorithms: ["HS256"] }),
+  adminValidation,
+  userController.getUserById
+);
+router.post(
+  "/api/users",
+  upload.single("imgUser"),
+  handleUploadSupabase,
+  caractherValidatorUser.create,
+  userController.createUser
+);
+router.patch(
+  "/api/users/:id",
+  expressjwt({ secret: process.env.JWT_SECRET, algorithms: ["HS256"] }),
+  adminValidation,
+  userController.updateUser
+);
+router.delete(
+  "/api/users/:id",
+  expressjwt({ secret: process.env.JWT_SECRET, algorithms: ["HS256"] }),
+  adminValidation,
+  userController.deleteUser
+);
+router.get(
+  "/api/getOwnUser/:password",
+  expressjwt({ secret: process.env.JWT_SECRET, algorithms: ["HS256"] }),
+  userController.getOwnUser
+);
 
 export default router;
