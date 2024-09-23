@@ -1,12 +1,15 @@
 import express from "express";
-//import env from 'node:process'
 import userController from "../controllers/userController.js";
 import upload from "../config/multer.js";
 import { expressjwt } from "express-jwt";
 import caractherValidatorUser from "../middleware/caractherValidatorUser.js";
 import adminAccess from "../middleware/adminValidator.js";
+import dotenv from 'dotenv';
+
 const router = express.Router();
+dotenv.config()
 const jwtSecret = process.env.JWT_SECRET;
+
 
 router.get(
   "/api/users",
@@ -41,7 +44,7 @@ router.delete(
 router.get(
   "/api/getOwnUser/:password",
   expressjwt({ secret: jwtSecret, algorithms: ["HS256"] }),
-  userController.getOwnUser
+  userController.getUserById
 );
 
 export default router;

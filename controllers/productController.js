@@ -28,7 +28,7 @@ async function getProductById(req, res) {
   }
 }
 
-async function create(req, res) {
+async function create (req, res) {
   const result = validationResult(req);
   if (result.isEmpty()) {
     const {
@@ -61,7 +61,7 @@ async function create(req, res) {
     } else {
       res.json({
         message:
-          "El producto ya está creado por favor actualiza la pagina",
+          "El producto ya está creado por favor ingresa a la opción de actualizar",
       });
     }
     return res.json({ error: result.array() });

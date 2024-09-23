@@ -21,7 +21,7 @@ router.post(
   "/api/products",
   expressjwt({ secret: jwtSecret, algorithms: ["HS256"] }),
   adminAccess,
-  upload.single("avatar"),
+  upload.single('avatar'),
   productValidation.create,
   productController.create
 );
