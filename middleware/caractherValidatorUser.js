@@ -2,7 +2,7 @@ import { body } from "express-validator";
 
 const caractherValidatorUser = {
   create: [
-    body("userName")
+    body("username")
       .notEmpty()
       .withMessage("El campo userName  es obligatorio")
       .isString("El valor userName debe ser un string"),

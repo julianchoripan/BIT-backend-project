@@ -28,7 +28,7 @@ async function getProductById(req, res) {
   }
 }
 
-async function create (req, res) {
+async function create(req, res) {
   const result = validationResult(req);
   if (result.isEmpty()) {
     const {
@@ -43,7 +43,7 @@ async function create (req, res) {
       stock,
     } = req.body;
     const productCreated = await Product.findOne({ cod: cod });
-
+    console.log(productCreated);
     if (!productCreated) {
       const newProduct = await Product.create({
         cod,
@@ -55,9 +55,9 @@ async function create (req, res) {
         category,
         dimensions,
         stock,
-        // avatar: req.file.filename,
+        image: req.file.filename,
       });
-      return res.status(201).json(newProduct);
+       res.status(201).json(newProduct);
     } else {
       res.json({
         message:

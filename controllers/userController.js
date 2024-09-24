@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
+import { validationResult } from "express-validator";
 
 //obtener todos los usuarios
 async function getAllUsers(req, res) {
@@ -41,7 +42,7 @@ async function createUser(req, res) {
   const result = validationResult(req);
   if (result.isEmpty()) {
     const {
-      userName,
+      username,
       firstName,
       lastName,
       email,
@@ -54,7 +55,7 @@ async function createUser(req, res) {
     const userCreated = await User.findOne({ email: email });
     if (!userCreated) {
       const newUser = await User.create({
-        userName,
+        username,
         firstName,
         lastName,
         email,
@@ -62,7 +63,7 @@ async function createUser(req, res) {
         age,
         address,
         phoneNumber,
-        imgUser: req.file.supabaseUrl,
+        image: req.file.filename,
       });
       return res.status(201).json(newUser);
     } else {

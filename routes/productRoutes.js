@@ -18,10 +18,10 @@ router.get(
   productController.getProductById
 );
 router.post(
-  "/api/products",
+  "/api/:entity",
   expressjwt({ secret: jwtSecret, algorithms: ["HS256"] }),
   adminAccess,
-  upload.single('avatar'),
+  upload.single('image'),
   productValidation.create,
   productController.create
 );

@@ -29,6 +29,6 @@ app.use(
 );
 
 //servidor en escucha
-app.listen(port, () => {
+app.listen(process.env.APP_PORT, () => {
   console.log("Servidor corriendo en el puerto 3000");
 });

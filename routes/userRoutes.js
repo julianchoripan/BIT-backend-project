@@ -24,8 +24,8 @@ router.get(
   userController.getUserById
 );
 router.post(
-  "/api/users",
-  upload.single("imgUser"),
+  "/api/:entity",
+  upload.single("image"),
   caractherValidatorUser.create,
   userController.createUser
 );

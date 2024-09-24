@@ -29,7 +29,7 @@ const userSchema = mongoose.Schema(
       type: Date,
       default: null,
     },
-    avatar: {
+    image: {
       type: String,
       require: false,
     },

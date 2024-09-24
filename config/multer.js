@@ -3,8 +3,19 @@ import path from "path";
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(import.meta.dirname, "../avatar/ImgUser"));
+    // Suponiendo que la entidad viene como un parámetro en la solicitud
+    const entity = req.params.entity; // "usuarios" o "productos"
+    console.log (entity)
+    let folder = "";
 
+    // Define la carpeta según la entidad
+    if (entity === "user") {
+      folder = "./uploads/user";
+    } else if (entity === "products") {
+      folder = "./uploads/products";
+    }
+
+    cb(null, folder);
   },
 
     filename: (req, file, cb) => {
