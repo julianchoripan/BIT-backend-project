@@ -6,13 +6,13 @@ import authRoutes from "./routes/authRoutes.js";
 import connectDB from "./config/database.js";
 import productRoutes from "./routes/productRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
+import "dotenv/config";
+
 const app = express();
-const port = 3000;
 
 app.use(express.json());
 
 const newavatar = path.join(import.meta.dirname, "avatar/imgUser/imgProducts");
-
 
 if (!fs.existsSync(newavatar)) {
   fs.mkdirSync(newavatar, { recursive: true });
@@ -30,5 +30,5 @@ app.use(
 
 //servidor en escucha
 app.listen(process.env.APP_PORT, () => {
-  console.log("Servidor corriendo en el puerto 3000");
+  console.log(`[Server] Server running at ${process.env.APP_PORT} port`);
 });
