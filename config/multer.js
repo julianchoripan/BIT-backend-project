@@ -9,12 +9,12 @@ const storage = multer.diskStorage({
     let folder = "";
 
     // Define la carpeta según la entidad
-    if (entity === "user") {
+    if (req.url === "/api/user" && req.method === 'POST') {
       folder = "./uploads/user";
-    } else if (entity === "products") {
+    } else if (req.url === '/api/products' && req.method === 'POST') {
       folder = "./uploads/products";
     }
-
+   
     cb(null, folder);
   },
 

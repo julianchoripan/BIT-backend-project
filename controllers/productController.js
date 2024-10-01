@@ -43,7 +43,7 @@ async function create(req, res) {
       stock,
     } = req.body;
     const productCreated = await Product.findOne({ cod: cod });
-    console.log(productCreated);
+    //console.log(productCreated);
     if (!productCreated) {
       const newProduct = await Product.create({
         cod,
@@ -57,9 +57,9 @@ async function create(req, res) {
         stock,
         image: req.file.filename,
       });
-       res.status(201).json(newProduct);
+      return res.status(201).json(newProduct);
     } else {
-      res.json({
+      return res.json({
         message:
           "El producto ya está creado por favor ingresa a la opción de actualizar",
       });

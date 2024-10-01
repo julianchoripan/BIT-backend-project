@@ -12,11 +12,7 @@ const app = express();
 
 app.use(express.json());
 
-const newavatar = path.join(import.meta.dirname, "avatar/imgUser/imgProducts");
 
-if (!fs.existsSync(newavatar)) {
-  fs.mkdirSync(newavatar, { recursive: true });
-}
 
 connectDB();
 app.use(authRoutes);
