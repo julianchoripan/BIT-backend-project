@@ -19,6 +19,8 @@ router.get(
 );
 router.post(
   "/api/products",
+  expressjwt({ secret: jwtSecret, algorithms: ["HS256"] }),
+  adminAccess,
   upload.single('image'),
   productValidation.create,
   productController.create
