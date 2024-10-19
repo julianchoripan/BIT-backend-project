@@ -40,12 +40,13 @@ async function createOrder(req, res) {
   if (result.isEmpty()) {
     console.log(result);
 
-    const { products, shippingAdress, paymentMethod } = req.body;
+    const { products, shippingAdress, paymentMethod, total } = req.body;
 
     const newOrder = await Order.create({
       user: req.auth.id,
       products, //disminuir el producto en entidad productos
-      total: await calculateTotal(products), //calcular
+      //total: await calculateTotal(products), //calcular
+      total,
       shippingAdress,
       paymentMethod,
     });

@@ -2,12 +2,13 @@ import User from "../models/User.js";
 
 async function adminAccess(req, res, next) {
   try {
-    const adminIdentify = await User.findById(req.params.id);
+    const adminIdentify = await User.findById(req.auth.id);
 
-    if (adminIdentify.rolecode === "0") {
-      console.log(adminIdentify.rolecode);
+    if (adminIdentify.roleCode === 900) {
       next();
     } else {
+      //console.log("Code-->", adminIdentify.roleCode);
+      //console.log("Object-->", adminIdentify);
       return res.status(401).json("No eres Administrador");
     }
   } catch (error) {

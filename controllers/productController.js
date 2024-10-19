@@ -64,8 +64,8 @@ async function create(req, res) {
           "El producto ya está creado por favor ingresa a la opción de actualizar",
       });
     }
-    return res.json({ error: result.array() });
   }
+  return res.json({ error: result.array() });
 }
 
 async function updateProduct(req, res) {

@@ -4,35 +4,32 @@ import upload from "../config/multer.js";
 import { expressjwt } from "express-jwt";
 import caractherValidatorUser from "../middleware/caractherValidatorUser.js";
 import adminAccess from "../middleware/adminValidator.js";
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 
 const router = express.Router();
-dotenv.config()
+dotenv.config();
 const jwtSecret = process.env.JWT_SECRET;
 
-
+// router.get(
+//   "/api/users/all",
+//   expressjwt({ secret: jwtSecret, algorithms: ["HS256"] }),
+//   adminAccess,
+//   userController.getAllUsers
+// );
 router.get(
-  "/api/users",
+  "/api/users/",
   expressjwt({ secret: jwtSecret, algorithms: ["HS256"] }),
-  adminAccess,
-  userController.getAllUsers
-);
-router.get(
-  "/api/users/:id",
-  expressjwt({ secret: jwtSecret, algorithms: ["HS256"] }),
-  adminAccess,
   userController.getUserById
 );
 router.post(
-  "/api/user",
+  "/api/users",
   upload.single("image"),
-  caractherValidatorUser.create,
+
   userController.createUser
 );
 router.patch(
-  "/api/users/:id",
+  "/api/users",
   expressjwt({ secret: jwtSecret, algorithms: ["HS256"] }),
-  adminAccess,
   userController.updateUser
 );
 router.delete(

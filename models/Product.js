@@ -38,7 +38,7 @@ const productSchema = mongoose.Schema(
     },
     image: {
       type: String,
-      required: false, 
+      required: false,
     },
     deletedAt: {
       type: Date,
@@ -48,7 +48,20 @@ const productSchema = mongoose.Schema(
   {
     timestamps: true,
   }
-)
+);
 const Product = mongoose.model("Product", productSchema);
 
 export default Product;
+/*
+{
+	"cod":"010",
+        "name": "Luces",
+      "description": "Original",
+      "price": 3000,
+      "brand": "TVS",
+      "model": "2024",
+      "category": "Carenaje",
+        "dimensions":"Sin dimensiones",
+      "stock": 20
+}
+       */

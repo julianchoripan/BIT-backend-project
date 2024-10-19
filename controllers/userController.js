@@ -21,7 +21,7 @@ async function getAllUsers(req, res) {
 //obtener un usuario
 async function getUserById(req, res) {
   try {
-    const userId = req.params.id;
+    const userId = req.auth.id;
     const userFound = await User.findOne({
       _id: userId,
       deletedAt: { $eq: null },
@@ -77,7 +77,7 @@ async function createUser(req, res) {
 //actualizar los datos de un usuario
 async function updateUser(req, res) {
   try {
-    const userId = req.params.id;
+    const userId = req.auth.id;
     const updates = req.body;
     if (updates.password) {
       const hashedPassword = await bcrypt.hash(updates.password, 10);

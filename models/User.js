@@ -31,11 +31,11 @@ const userSchema = mongoose.Schema(
     },
     image: {
       type: String,
-      require: false,
+      required: false,
     },
-    rolecode: {
-      type: String,
-      default: "0",
+    roleCode: {
+      type: Number,
+      default: 100,
     },
   },
   {
