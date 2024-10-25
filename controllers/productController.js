@@ -14,6 +14,7 @@ async function getAllProducts(req, res) {
 async function getProductById(req, res) {
   try {
     const ProductId = req.params.id;
+    console.log(ProductId);
     const ProductFound = await Product.findOne({
       _id: ProductId,
       deletedAt: { $eq: null },

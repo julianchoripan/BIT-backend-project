@@ -9,19 +9,19 @@ const jwtSecret = process.env.JWT_SECRET;
 
 router.get(
   "/api/products",
-  expressjwt({ secret: jwtSecret, algorithms: ["HS256"] }),
+  // expressjwt({ secret: jwtSecret, algorithms: ["HS256"] }),
   productController.getAllProducts
 );
 router.get(
   "/api/products/:id",
-  expressjwt({ secret: jwtSecret, algorithms: ["HS256"] }),
+  // expressjwt({ secret: jwtSecret, algorithms: ["HS256"] }),
   productController.getProductById
 );
 router.post(
   "/api/products",
   expressjwt({ secret: jwtSecret, algorithms: ["HS256"] }),
   adminAccess,
-  upload.single('image'),
+  upload.single("image"),
   productValidation.create,
   productController.create
 );

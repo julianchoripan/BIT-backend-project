@@ -30,6 +30,7 @@ router.post(
 router.patch(
   "/api/users",
   expressjwt({ secret: jwtSecret, algorithms: ["HS256"] }),
+  upload.single("image"),
   userController.updateUser
 );
 router.delete(

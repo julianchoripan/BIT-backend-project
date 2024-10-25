@@ -58,7 +58,7 @@ async function createUser(req, res) {
         username,
         firstName,
         lastName,
-        email,
+        email: email.toLowerCase(),
         password,
         age,
         address,
@@ -76,6 +76,7 @@ async function createUser(req, res) {
 
 //actualizar los datos de un usuario
 async function updateUser(req, res) {
+  console.log("req body-->", req.body);
   try {
     const userId = req.auth.id;
     const updates = req.body;

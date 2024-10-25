@@ -7,7 +7,7 @@ async function getAll(req, res) {
     const orders = await Order.find({ deletedAt: { $eq: null } })
       .populate("user", ["-password"])
       .populate("products.product");
-    console.log(orders);
+    //console.log(orders);
     if (orders) {
       return res.json({ orders: orders });
     } else {
@@ -31,30 +31,35 @@ async function getOrderById(req, res) {
       return res.json("No se encontró la orden");
     }
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     return res.status(500).json("Orden no encontrada");
   }
 }
 async function createOrder(req, res) {
-  const result = validationResult(req);
-  if (result.isEmpty()) {
-    console.log(result);
+  console.log("Req.body--->", req.body);
+  try {
+    const result = validationResult(req);
+    if (result.isEmpty()) {
+      //console.log(result);
 
-    const { products, shippingAdress, paymentMethod, total } = req.body;
+      const { products, shippingAdress, paymentMethod, total } = req.body;
 
-    const newOrder = await Order.create({
-      user: req.auth.id,
-      products, //disminuir el producto en entidad productos
-      //total: await calculateTotal(products), //calcular
-      total,
-      shippingAdress,
-      paymentMethod,
-    });
-    calculateStock(products);
-    return res.json(newOrder);
+      const newOrder = await Order.create({
+        user: req.auth.id,
+        products, //disminuir el producto en entidad productos
+        //total: await calculateTotal(products), //calcular
+        total,
+        shippingAdress,
+        paymentMethod,
+      });
+      console.log(newOrder);
+      //calculateStock(products);
+      return res.json(newOrder);
+    }
+  } catch (error) {
+    console.log("Error--->", error);
+    return res.status(500).json({ error: error });
   }
-  //console.log(error)
-  return res.status(500).json({ error: result.array() });
 }
 async function updateOrder(req, res) {
   try {
@@ -129,24 +134,24 @@ async function calculateTotal(products) {
 }
 async function calculateStock(products) {
   try {
-    console.log(products);
+    //console.log(products);
     let updateStock = 0;
     for (let i = 0; i < products.length; i++) {
-      console.log(products.length);
+      //console.log(products.length);
 
       const getProductId = products[i].product;
 
-      console.log("id-->", getProductId);
+      // console.log("id-->", getProductId);
 
       const getProductQuantity = products[i].quantity;
 
-      console.log("cantidad-->", getProductQuantity);
+      //  console.log("cantidad-->", getProductQuantity);
 
       const getProductStock = await Product.findById({
         _id: getProductId,
       }).select("stock");
 
-      console.log("Antes-->", getProductStock);
+      // console.log("Antes-->", getProductStock);
 
       if (
         getProductQuantity <= getProductStock.stock &&
@@ -155,7 +160,7 @@ async function calculateStock(products) {
         updateStock = getProductStock.stock - getProductQuantity;
         getProductStock.stock = updateStock || getProductStock.stock;
 
-        console.log("Despues -->", getProductStock);
+        //console.log("Despues -->", getProductStock);
 
         await getProductStock.save();
       }
