@@ -1,0 +1,163 @@
+# BIT-backend-project
+
+## Descripción
+La API `BIT-backend-project` tiene endpoints para realizar CRUD de usuarios, productos y órdenes de compra. Tiene middlewares para validar el ingreso correcto de datos y restricciones según perfil de usuario o administrador.
+
+## Instalación
+
+### Requisitos Previos
+
+Asegúrate de tener instalados los siguientes programas:
+
+- [Node.js](https://nodejs.org/) (v20.11.1 o superior)
+- [MongoDB](https://www.mongodb.com/try/download/community) (v5.0 o superior)
+
+#### Verificación de Instalación
+
+Para verificar que Node.js está instalado, ejecuta el siguiente comando en la terminal:
+```bash
+node -v
+Para verificar la instalación de MongoDB, ejecuta:
+
+mongo --version
+Clonar el Repositorio
+Clona el repositorio del proyecto usando Git:
+
+git clone https://github.com/julianchoripan/BIT-backend-project
+cd BIT-backend-project
+Instalación de Dependencias
+Instala las dependencias del proyecto con npm:
+
+npm install
+Esto cargará la carpeta node_modules.
+
+Configuración de la Base de Datos
+Inicia el servicio de MongoDB. Dependiendo de tu sistema operativo, el comando puede variar. En general, puedes usar:
+
+
+mongod
+(Opcional) Si necesitas crear una base de datos específica, abre la shell de MongoDB:
+
+
+mongo
+Luego, crea tu base de datos y colecciones según sea necesario.
+
+Configuración
+Crea un archivo .env en la raíz del proyecto con las siguientes variables, o copia y pega las variables del archivo .env de ejemplo:
+
+APP_PORT=
+DB_CONNECTION_STRING=
+JWT_SECRET=
+SEEDER_USER_PASSWORD=
+Ejecutar el Proyecto
+Para iniciar la aplicación, utiliza el siguiente comando:
+
+nodemon
+Esto levantará el servidor en http://localhost:3000 (o en el puerto que esté configurado).
+
+Uso
+Para acceder a las compras, información personal e historial de compras, el usuario debe estar registrado y logueado para garantizar que solo accede a su información.
+
+Ejemplo de Comando
+User: Correo electrónico de registro.
+Password: El ingresado en el registro.
+Para iniciar la aplicación, usa el siguiente comando:
+
+nodemon
+Esto levantará el servidor en http://localhost:3000.
+
+Contribuciones
+¡Las contribuciones son bienvenidas! Si deseas ayudar a mejorar este proyecto, sigue las pautas a continuación.
+
+Pasos para Contribuir
+Fork el Repositorio:
+
+Haz clic en el botón "Fork" en la parte superior derecha de la página del proyecto.
+Crea una Rama:
+
+git checkout -b nombre-de-la-caracteristica
+Realiza tus Cambios: Haz las modificaciones que consideres necesarias en el código.
+
+Realiza Commits:
+
+git commit -m "Descripción breve de los cambios realizados"
+Push a tu Fork:
+
+git push origin nombre-de-la-caracteristica
+Crea un Pull Request: Ve a la página del repositorio original y haz clic en "New Pull Request". Selecciona tu rama y sigue las instrucciones.
+
+Normas de Código
+Asegúrate de seguir las pautas de estilo de código del proyecto.
+Usa eslint para verificar el formato y la calidad del código.
+Comenta tu código para mejorar la comprensión.
+Agradecimientos
+Gracias por tu interés en contribuir a este proyecto. Cada aporte cuenta y ayuda a que la comunidad crezca.
+
+Licencia
+Proyecto sin licencia.
+
+Tecnologías
+Este proyecto utiliza las siguientes tecnologías:
+
+JavaScript: Lenguaje de programación principal del proyecto, utilizado para la lógica del lado del cliente y del servidor.
+Node.js: Entorno de ejecución que permite ejecutar JavaScript en el servidor.
+Para más detalles, consulta la documentación de cada tecnología:
+
+JavaScript
+Node.js
+Dependencias
+Este proyecto utiliza las siguientes librerías y módulos necesarios para su funcionamiento:
+
+@supabase/supabase-js: ^2.45.4
+Cliente de JavaScript para interactuar con Supabase.
+
+bcryptjs: ^2.4.3
+Biblioteca para encriptar contraseñas.
+
+dotenv: ^16.4.5
+Carga variables de entorno desde un archivo .env.
+
+express: ^4.19.2
+Framework web minimalista para Node.js.
+
+express-jwt: ^8.4.1
+Middleware para manejar autenticación JWT en Express.
+
+express-validator: ^7.2.0
+Middleware para validar y sanitizar datos en Express.
+
+jsonwebtoken: ^9.0.2
+Biblioteca para generar y verificar JSON Web Tokens.
+
+mongoose: ^8.6.1
+ODM (Object Data Modeling) para MongoDB y Node.js.
+
+multer: ^1.4.5-lts.1
+Middleware para manejar multipart/form-data, utilizado para subir archivos.
+
+Para instalar todas las dependencias, asegúrate de haber clonado el repositorio y ejecuta el siguiente comando en la raíz del proyecto:
+
+npm install
+Autores y Agradecimientos
+Daniel - Desarrollo de CRUD productos y endpoints
+GitHub
+
+Julian Balaguera - Desarrollo de CRUD usuarios y endpoints
+GitHub
+
+Yeniffer Ochoa - Desarrollo de CRUD órdenes y endpoints
+GitHub | LinkedIn
+
+Agradecimientos Especiales
+Gracias a Al Bootcamp FullStack de BIT por su apoyo y recursos.
+Gracias a todos los que han contribuido, tanto de manera directa como indirecta, a hacer posible este proyecto.
+
+Estado del Proyecto
+Este proyecto está actualmente en desarrollo. Se están implementando nuevas características y mejoras, incluyendo:
+
+Integración de nuevas funcionalidades.
+Mejoras en la interfaz de usuario.
+Problemas Conocidos
+Existen algunos errores menores en la versión actual que se están abordando.
+Futuras Actualizaciones
+Se planea lanzar una versión estable en el próximo mes, que incluirá correcciones de errores y nuevas características. Las contribuciones son bienvenidas para ayudar a mejorar el proyecto.

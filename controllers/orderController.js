@@ -6,8 +6,8 @@ async function getAll(req, res) {
   try {
     const orders = await Order.find({ deletedAt: { $eq: null } })
       .populate("user", ["-password"])
-      .populate("products.product");
-    //console.log(orders);
+      .populate("products.product"); //Revisar
+    console.log("Populate products:---->", orders);
     if (orders) {
       return res.json({ orders: orders });
     } else {
@@ -24,7 +24,9 @@ async function getOrderById(req, res) {
     const orderFound = await Order.findOne({
       _id: orderId,
       deletedAt: { $eq: null },
-    }); //Revisar
+    })
+      .populate("user", ["-password"])
+      .populate("products.product"); //Revisar
     if (orderFound) {
       return res.json({ order: orderFound });
     } else {
@@ -36,14 +38,14 @@ async function getOrderById(req, res) {
   }
 }
 async function createOrder(req, res) {
-  console.log("Req.body--->", req.body);
+  //console.log("Req.body--->", req.body);
   try {
     const result = validationResult(req);
     if (result.isEmpty()) {
       //console.log(result);
 
       const { products, shippingAdress, paymentMethod, total } = req.body;
-
+      console.log("products--->", products.product);
       const newOrder = await Order.create({
         user: req.auth.id,
         products, //disminuir el producto en entidad productos
@@ -52,7 +54,7 @@ async function createOrder(req, res) {
         shippingAdress,
         paymentMethod,
       });
-      console.log(newOrder);
+      //console.log(newOrder);
       //calculateStock(products);
       return res.json(newOrder);
     }

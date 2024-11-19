@@ -18,7 +18,6 @@ router.get(
 router.get(
   "/api/orders",
   expressjwt({ secret: jwtSecret, algorithms: ["HS256"] }),
-  adminAccess,
   orderController.getAll
 );
 router.get(
