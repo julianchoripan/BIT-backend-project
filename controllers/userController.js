@@ -8,13 +8,14 @@ async function getAllUsers(req, res) {
     const users = await User.find({ deletedAt: { $eq: null } }).select(
       "-password"
     );
-    if (users.length === 0) {
-      return res.status(404).json({ message: "No users found" });
-    }
-    return res.status(200).json(users);
+
+    // if (users.length === 0) {
+    //   return res.status(401).json({ ok: false, msg: "User not found" });
+    // }
+    return res.status(200).json({ ok: true, users });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ ok: false, msg: "Server error" });
   }
 }
 
@@ -32,45 +33,49 @@ async function getUserById(req, res) {
     return res.status(200).json(userFound);
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ ok: false, msg: "Server error" });
   }
 }
 
 //crear un usuario
 async function createUser(req, res) {
-  //console.log(req.file)
-  const result = validationResult(req);
-  if (result.isEmpty()) {
-    const {
-      username,
-      firstName,
-      lastName,
-      email,
-      password,
-      age,
-      address,
-      phoneNumber,
-    } = req.body;
-    //const imgUser = req.file.filename;
-    const userCreated = await User.findOne({ email: email });
-    if (!userCreated) {
-      const newUser = await User.create({
+  try {
+    //console.log(req.file)
+    const result = validationResult(req);
+    if (result.isEmpty()) {
+      const {
         username,
         firstName,
         lastName,
-        email: email.toLowerCase(),
+        email,
         password,
         age,
         address,
         phoneNumber,
-        image: req.file.filename,
-      });
-      return res.status(201).json(newUser);
+      } = req.body;
+      //const imgUser = req.file.filename;
+      const userCreated = await User.findOne({ email: email });
+      if (!userCreated) {
+        const newUser = await User.create({
+          username,
+          firstName,
+          lastName,
+          email: email.toLowerCase(),
+          password,
+          age,
+          address,
+          phoneNumber,
+          image: req.file.filename,
+        });
+        return res.status(201).json(newUser);
+      } else {
+        res.json({ message: "El usuario ya existe" });
+      }
     } else {
-      res.json({ message: "El usuario ya existe" });
+      return res.json({ error: result.array() });
     }
-  } else {
-    return res.json({ error: result.array() });
+  } catch (error) {
+    return res.status(500).json({ ok: false, msg: "Server error" });
   }
 }
 
@@ -95,7 +100,7 @@ async function updateUser(req, res) {
       .json({ message: "User updated successfully", user: updatedUser });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ ok: false, msg: "Server error" });
   }
 }
 
@@ -115,7 +120,7 @@ async function deleteUser(req, res) {
     return res.status(200).json({ message: "User deleted successfully" });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ ok: false, msg: "Server error" });
   }
 }
 // async function login(req, res) {

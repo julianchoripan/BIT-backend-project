@@ -56,7 +56,10 @@ async function createOrder(req, res) {
       });
       //console.log(newOrder);
       //calculateStock(products);
-      return res.json(newOrder);
+      return res.status(201).json({
+        message: "Order created successfully",
+        order: newOrder,
+      });
     }
   } catch (error) {
     console.log("Error--->", error);

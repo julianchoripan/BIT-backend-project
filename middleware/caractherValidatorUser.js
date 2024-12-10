@@ -14,14 +14,15 @@ const caractherValidatorUser = {
       .notEmpty()
       .withMessage("El campo lastName  es obligatorio")
       .isString("El valor lastName debe ser un string"),
-      body("email")
-      .notEmpty()
-      .withMessage("El campo email  es obligatorio")
-      .isString("El valor email debe ser un string"),
-      body("password")
-      .notEmpty()
-      .withMessage("El campo password  es obligatorio")
-      .isString("El valor password debe ser un string"),
-  ]
+    body("email", "Ups!! Email is required").not().isEmpty(),
+    body("email", "Email is invalid!!").normalizeEmail().isEmail(),
+    body(
+      "password",
+      "Hey!! pasword must contain at least, uppercase, lowercase, numbers and characters"
+    ).isStrongPassword(),
+    body("age", "Ups!!  is required").not().isEmpty(),
+    body("address", "Ups!! Address is required").not().isEmpty(),
+    body("phoneNumber", "Ups!! Phone number is required").not().isEmpty(),
+  ],
 };
-export default  caractherValidatorUser;
+export default caractherValidatorUser;

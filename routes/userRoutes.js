@@ -17,14 +17,15 @@ const jwtSecret = process.env.JWT_SECRET;
 //   userController.getAllUsers
 // );
 router.get(
-  "/api/users/",
-  expressjwt({ secret: jwtSecret, algorithms: ["HS256"] }),
-  userController.getUserById
+  "/api/users",
+  // expressjwt({ secret: jwtSecret, algorithms: ["HS256"] }),
+  // adminAccess,
+  userController.getAllUsers
 );
 router.post(
   "/api/users",
   upload.single("image"),
-
+  caractherValidatorUser.create,
   userController.createUser
 );
 router.patch(
@@ -40,7 +41,7 @@ router.delete(
   userController.deleteUser
 );
 router.get(
-  "/api/getOwnUser/:password",
+  "/api/getOwnUser",
   expressjwt({ secret: jwtSecret, algorithms: ["HS256"] }),
   userController.getUserById
 );

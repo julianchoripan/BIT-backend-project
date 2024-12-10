@@ -1,6 +1,11 @@
 import multer from "multer";
 import path from "path";
+import { fileURLToPath } from "url";
 
+// Crear __dirname en un entorno ESM
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+// console.log("fffff--->", __dirname);
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     // Suponiendo que la entidad viene como un parámetro en la solicitud
@@ -17,7 +22,8 @@ const storage = multer.diskStorage({
       folder = "../avatar/imgProducts";
     }
 
-    cb(null, path.join(import.meta.dirname, folder));
+    cb(null, path.join("C:UsersUsuarioDesktopproyecto-backendconfig", folder));
+
     //cb(null, folder);
   },
 
