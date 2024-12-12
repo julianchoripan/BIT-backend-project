@@ -138,12 +138,13 @@ Middleware para manejar multipart/form-data, utilizado para subir archivos.
 Para instalar todas las dependencias, asegúrate de haber clonado el repositorio y ejecuta el siguiente comando en la raíz del proyecto:
 
 npm install
+
 Autores y Agradecimientos
-Daniel - Desarrollo de CRUD productos y endpoints
-GitHub
+Daniel Colina - Desarrollo de CRUD productos y endpoints
+GitHub | Linkedin: https://www.linkedin.com/in/daniel-colina-desarrollador-web/
 
 Julian Balaguera - Desarrollo de CRUD usuarios y endpoints
-GitHub
+GitHub | Linkedin 
 
 Yeniffer Ochoa - Desarrollo de CRUD órdenes y endpoints
 GitHub | LinkedIn
