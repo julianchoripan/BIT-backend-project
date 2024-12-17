@@ -15,14 +15,14 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
-if (process.env.NODE_ENV !== "test") {
-  connectDB();
-  app.use("/api/avatars", express.static(path.join(__dirname || "", "avatar")));
-  //servidor en escucha
-  app.listen(process.env.APP_PORT, () => {
-    console.log(`[Server] Server running at ${process.env.APP_PORT} port`);
-  });
-}
+// if (process.env.NODE_ENV !== "test") {
+connectDB();
+app.use("/api/avatars", express.static(path.join(__dirname || "", "avatar")));
+//servidor en escucha
+app.listen(process.env.APP_PORT, () => {
+  console.log(`[Server] Server running at ${process.env.APP_PORT} port`);
+});
+// }
 
 app.use(authRoutes);
 app.use(orderRoutes);

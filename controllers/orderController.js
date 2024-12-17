@@ -28,6 +28,7 @@ async function getOrderById(req, res) {
       .populate("user", ["-password"])
       .populate("products.product"); //Revisar
     if (orderFound) {
+      console.log("------------", orderFound);
       return res.json({ order: orderFound });
     } else {
       return res.json("No se encontró la orden");
