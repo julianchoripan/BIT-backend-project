@@ -41,39 +41,39 @@ async function getUserById(req, res) {
 async function createUser(req, res) {
   try {
     //console.log(req.file)
-    const result = validationResult(req);
-    if (result.isEmpty()) {
-      const {
+    //const result = validationResult(req);
+    // if (result.isEmpty()) {
+    const {
+      username,
+      firstName,
+      lastName,
+      email,
+      password,
+      age,
+      address,
+      phoneNumber,
+    } = req.body;
+    //const imgUser = req.file.filename;
+    const userCreated = await User.findOne({ email: email });
+    if (!userCreated) {
+      const newUser = await User.create({
         username,
         firstName,
         lastName,
-        email,
+        email: email.toLowerCase(),
         password,
         age,
         address,
         phoneNumber,
-      } = req.body;
-      //const imgUser = req.file.filename;
-      const userCreated = await User.findOne({ email: email });
-      if (!userCreated) {
-        const newUser = await User.create({
-          username,
-          firstName,
-          lastName,
-          email: email.toLowerCase(),
-          password,
-          age,
-          address,
-          phoneNumber,
-          image: req.file.filename,
-        });
-        return res.status(201).json(newUser);
-      } else {
-        res.json({ message: "El usuario ya existe" });
-      }
+        image: req?.file?.filename,
+      });
+      return res.status(201).json(newUser);
     } else {
-      return res.json({ error: result.array() });
+      res.json({ message: "El usuario ya existe" });
     }
+    // } else {
+    //   return res.json({ error: result.array() });
+    // }
   } catch (error) {
     return res.status(500).json({ ok: false, msg: "Server error" });
   }
@@ -91,7 +91,7 @@ async function updateUser(req, res) {
     }
     const updatedUser = await User.findByIdAndUpdate(userId, updates, {
       new: true,
-    }).select("-password");
+    });
     if (!updatedUser) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -123,19 +123,6 @@ async function deleteUser(req, res) {
     return res.status(500).json({ ok: false, msg: "Server error" });
   }
 }
-// async function login(req, res) {
-//   const user = await User.findOne({ email: req.body.email });
-
-//   if (user) {
-//     //comparar la contraseña
-//     const match = await bcrypt.compare(req.body.password, user.password);
-//     if (match) {
-//       return res.json("Te damos la bienvenida");
-//     }
-//   }
-
-//   return res.json("Las credenciales son incorrectas");
-// }
 
 export default {
   getAllUsers: getAllUsers,
@@ -143,5 +130,4 @@ export default {
   createUser: createUser,
   updateUser: updateUser,
   deleteUser: deleteUser,
-  //login: login,
 };
