@@ -4,7 +4,7 @@ import Product from "../models/Product.js";
 async function getAllProducts(req, res) {
   try {
     const product = await Product.find({ deletedAt: { $eq: null } });
-    return res.json(product);
+    return res.status(200).json(product);
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Internal server error" });
@@ -30,8 +30,9 @@ async function getProductById(req, res) {
 }
 
 async function create(req, res) {
-  const result = validationResult(req);
-  if (result.isEmpty()) {
+  try {
+    // const result = validationResult(req);
+    // if (result.isEmpty()) {
     const {
       cod,
       name,
@@ -65,8 +66,11 @@ async function create(req, res) {
           "El producto ya está creado por favor ingresa a la opción de actualizar",
       });
     }
+    // }
+    // return res.json({ error: result.array() });
+  } catch (error) {
+    return res.status(500).json({ message: "internal server error" });
   }
-  return res.json({ error: result.array() });
 }
 
 async function updateProduct(req, res) {
