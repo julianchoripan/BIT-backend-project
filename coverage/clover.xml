@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1734564865739" clover="3.2.0">
-  <project timestamp="1734564865740" name="All files">
-    <metrics statements="92" coveredstatements="83" conditionals="34" coveredconditionals="30" methods="10" coveredmethods="10" elements="136" coveredelements="123" complexity="0" loc="92" ncloc="92" packages="1" files="2" classes="2"/>
+<coverage generated="1734618886032" clover="3.2.0">
+  <project timestamp="1734618886033" name="All files">
+    <metrics statements="101" coveredstatements="92" conditionals="38" coveredconditionals="33" methods="11" coveredmethods="11" elements="150" coveredelements="136" complexity="0" loc="101" ncloc="101" packages="1" files="3" classes="3"/>
+    <file name="authController.js" path="C:\Users\Usuario\Desktop\proyecto-backend\controllers\authController.js">
+      <metrics statements="9" coveredstatements="9" conditionals="4" coveredconditionals="3" methods="1" coveredmethods="1"/>
+      <line num="6" count="3" type="stmt"/>
+      <line num="7" count="3" type="stmt"/>
+      <line num="9" count="2" type="cond" truecount="1" falsecount="1"/>
+      <line num="10" count="2" type="stmt"/>
+      <line num="14" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="15" count="1" type="stmt"/>
+      <line num="19" count="1" type="stmt"/>
+      <line num="22" count="1" type="stmt"/>
+      <line num="24" count="1" type="stmt"/>
+    </file>
     <file name="productController.js" path="C:\Users\Usuario\Desktop\proyecto-backend\controllers\productController.js">
       <metrics statements="46" coveredstatements="46" conditionals="22" coveredconditionals="21" methods="5" coveredmethods="5"/>
       <line num="5" count="2" type="stmt"/>
